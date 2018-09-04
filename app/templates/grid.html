@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block header %}
+<style>
+.wall {
+  background-color: black;
+}
+.ground {
+  background-color: green;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+{% for grid in grids %}
+<table class="table">
+  <tbody>
+    {% for row in grid %}
+    <tr>
+      {% for col in row %}
+      <td class="{% if col %}ground{% else %}wall{% endif %}"></td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<hr>
+{% endfor %}
+{% endblock %}
