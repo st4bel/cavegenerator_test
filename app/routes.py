@@ -9,7 +9,8 @@ def index():
 
 @app.route("/grid")
 def grid():
-    grids = [initialiseGrid(height=5,width=5,startalivechance=0.4)]
+    grids=[]
+    grids.append(initialiseGrid(startalivechance=0.4))
     for x in range(0, app.config["NUMBER_OF_STEPS"]):
         grids.append(simulateStep(grids[x]))
     return render_template("grid.html", grids = grids)

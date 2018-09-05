@@ -1,7 +1,7 @@
 import random
 from app import app
 
-def initialiseGrid(height = 20, width = 20, startalivechance=0.6):
+def initialiseGrid(height = app.config["GRID_HEIGHT"], width = app.config["GRID_WIDTH"], startalivechance=app.config["START_ALIVE_CHANCE"]):
     grid = []
     for row in range(0, height):
         grid.append([])
@@ -10,16 +10,21 @@ def initialiseGrid(height = 20, width = 20, startalivechance=0.6):
     return grid
 
 def simulateStep(oldgrid):
-    newgrid = oldgrid
-    for row in range(0,len(newgrid)):
-        for col in range(0,len(newgrid[row])):
+    newgrid = []
+    for row in range(0,len(oldgrid)):
+        newgrid.append([])
+        for col in range(0,len(oldgrid[row])):
             neighbours = countNeighbours(grid = oldgrid, row = row, col = col)
             if oldgrid[row][col]:
                 if neighbours < app.config["STARVE_LIMIT"]:
-                    newgrid[row][col] = False
+                    newgrid[row].append(False)
+                else:
+                    newgrid[row].append(True)
             else:
                 if neighbours > app.config["MIN_POP_BIRTH"]:
-                    newgrid[row][col] = True
+                    newgrid[row].append(True)
+                else:
+                    newgrid[row].append(False)
     return newgrid
 
 
